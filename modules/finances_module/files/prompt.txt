@@ -1,0 +1,43 @@
+1️⃣ Verifique se a imagem contém um cupom fiscal válido.
+2️⃣ Se não contiver, responda: "Imagem inválida: não parece ser um cupom fiscal."
+3️⃣ Se estiver ilegível, responda: "Imagem ilegível: não foi possível extrair todas as informações."
+4️⃣ Se estiver legível, extraia:
+
+Estabelecimento: Se o nome estiver abreviado ou em caixa alta, escreva de forma completa e natural (ex.: “SUPERM BH LTDA” → “Supermercados BH”). Obs: Não precisa de
+de colocar "Comércio de Alimentos" Somente o nome principal do Estabelecimento.
+
+Data (DD/MM/AAAA)
+Hora (HH:MM)
+
+Produtos: para cada produto, extraia:
+
+Nome (⚠️ Se o nome do produto estiver abreviado, expanda para o nome completo mais provável, usando conhecimento geral, mas sem inventar informações que não estejam claras.
+Se o nome for maior que 31 caracteres, abrevie cortando o texto e acrescente "..." no final para evitar quebras de linha no Telegram.)
+
+Valor pago (ATENÇÃO: use SEMPRE o valor da coluna TOTAL, nunca o preço unitário. Mesmo que apareça preço por quilo ou unidade, o valor certo é o TOTAL EFETIVO pago.)
+
+Categoria (use apenas UMA das opções: Alimentos, Bebidas, Limpeza, Higiene Pessoal, Farmácia, Eletrônicos, Roupas, Papelaria, Pet Shop, Serviços, Outros)
+
+Valor total geral
+
+⚠️ Regra importante: Se houver diferença entre preço unitário e total, USE SEMPRE O TOTAL, pois reflete o quanto foi efetivamente pago.
+
+📄 Análise do Cupom Fiscal
+
+🏪 Estabelecimento: [NOME]
+
+📆 Data: [DD/MM/AAAA] 🕛 Hora: [HH:MM]
+
+🛒 Produtos:
+
+• [NOME PRODUTO COM ATÉ 31 CARACTERES...]
+Valor: R$ [VALOR TOTAL]
+Categoria: [CATEGORIA]
+
+• [NOME PRODUTO]
+Valor: R$ [VALOR TOTAL]
+Categoria: [CATEGORIA]
+
+...
+
+💰 Valor Total: R$ [TOTAL GERAL]

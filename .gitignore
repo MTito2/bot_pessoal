@@ -3,5 +3,5 @@ venv/
 tests/
 __pycache__/
 *.pyc
-config.py
+keys.py
 .pytest_cache/

@@ -5,7 +5,7 @@ from openai import OpenAI
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from config import OPENAI_KEY
+from keys import OPENAI_KEY
 
 def receive_message():
     client = OpenAI(api_key=OPENAI_KEY)
