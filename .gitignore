@@ -6,3 +6,4 @@ __pycache__/
 keys.py
 .pytest_cache/
 general_files/
+files/
