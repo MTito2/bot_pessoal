@@ -7,15 +7,19 @@ sys.path.insert(0, str(ROOT_DIR))
 from bot import bot
 from modules.finances_module.ia_finances import analyze_image
 from modules.finances_module.functions_finances import save_photo
-
+from modules.finances_module.keyboards_finances import main_finances_menu
 
 user_states = {}
 WAITING_COUPON_PHOTO = "waiting_coupon_photo"
 
-@bot.message_handler(commands=["analisar_cupom"])
-def start_analysis(message):
-    user_states[message.from_user.id] = WAITING_COUPON_PHOTO
-    bot.reply_to(message, "Por favor, envie uma foto do cupom fiscal.")
+@bot.callback_query_handler(func=lambda call: call.data == "finances_menu")
+def handle_diet_menu(call):
+    bot.send_message(call.message.chat.id, "Escolha uma opção:", reply_markup=main_finances_menu())
+
+@bot.callback_query_handler(func= lambda call: call.data == "analyze_coupon")
+def start_analysis(call):
+    user_states[call.from_user.id] = WAITING_COUPON_PHOTO
+    bot.send_message(call.message.chat.id, "Por favor, envie uma foto do cupom fiscal.")
 
 @bot.message_handler(content_types=["photo"])
 def receive_img(message):
