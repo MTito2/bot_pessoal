@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 keys.py
 .pytest_cache/
+general_files/
