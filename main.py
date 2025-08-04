@@ -1,8 +1,10 @@
 from bot import bot
-from modules.diet_module import handler_diet
-from modules.finances_module import handler_finances
-from modules.menu_module import handler_menu
+from modules.diet_module import callbacks_diet, keyboards_diet
+from modules.menu_module import callbacks_menu, handler_menu, keyboards_menu
 
 if __name__ == "__main__":
-    print("Bot iniciado")
+    print("Bot iniciado ✅")
     bot.infinity_polling()
+
+#criar proteção nas funções(prioridade)
+#terminar callbacks do finace module

@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
+from modules.menu_module.keyboards_menu import main_menu_page_1
 from bot import bot
 
 @bot.message_handler(commands=["comandos", "start"])
@@ -12,12 +13,15 @@ def send_commands(message):
         message,
         """
 /comandos - Para ver os comandos disponíveis
-/sugerir_refeicao - Para receber uma sugestão de refeição
 /status - Para verificar o status do bot
-/analisar_cupom - Analisa a imagem do cupom fiscal
+/menu
 """
     )
 
 @bot.message_handler(commands=["status"])
 def send_commands(message):
     bot.reply_to(message, "Estou online e funcionando corretamente ✅")
+
+@bot.message_handler(commands=["menu"])
+def menu(message):
+    bot.send_message(message.chat.id, "Escolha uma opção:", reply_markup=main_menu_page_1())
