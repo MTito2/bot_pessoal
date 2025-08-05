@@ -15,3 +15,13 @@ def main_finances_menu():
     markup.add(btn1, btn2)
 
     return markup
+
+def confirm_information_menu():
+    markup = types.InlineKeyboardMarkup(row_width=1)
+
+    btn1 = types.InlineKeyboardButton("Sim", callback_data="confirm_information_finances_yes")
+    btn2 = types.InlineKeyboardButton("Não", callback_data="confirm_information_finances_no")
+
+    markup.add(btn1, btn2)
+
+    return markup

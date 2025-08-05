@@ -5,9 +5,9 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from bot import bot
-from modules.finances_module.ia_finances import analyze_image
-from modules.finances_module.functions_finances import save_photo
-from modules.finances_module.keyboards_finances import main_finances_menu
+from modules.finances_module.ia_finances import analyze_image, convert_analyze_image_to_json
+from modules.finances_module.functions_finances import save_photo, save_txt, read_txt
+from modules.finances_module.keyboards_finances import main_finances_menu, confirm_information_menu
 
 user_states = {}
 WAITING_COUPON_PHOTO = "waiting_coupon_photo"
@@ -35,7 +35,17 @@ def receive_img(message):
         save_photo(downloaded_photo)
 
         analysis_response = analyze_image()
+        save_txt("coupon_details.txt", analysis_response)
         bot.reply_to(message, analysis_response)
+        bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_information_menu())
 
-        
+@bot.callback_query_handler(func=lambda call: call.data == "confirm_information_finances_yes")
+def save_analysis(call):
+    bot.send_message(call.message.chat.id, "Salvando dados...")
+    analysis_response = read_txt("coupon_details.txt")
+    convert_analyze_image_to_json(analysis_response)
+    bot.send_message(call.message.chat.id, "Dados salvos com sucesso ✅")
 
+@bot.callback_query_handler(func=lambda call: call.data == "confirm_information_finances_no")
+def show_again_finances_menu(call):
+    bot.send_message(call.message.chat.id, "Escolha uma opção:", reply_markup=main_finances_menu())

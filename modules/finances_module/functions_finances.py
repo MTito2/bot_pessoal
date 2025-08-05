@@ -1,4 +1,4 @@
-import sys
+import sys, json
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
@@ -17,10 +17,38 @@ def save_photo(downloaded_photo):
     with open(image_path, "wb") as file:
         file.write(downloaded_photo)
 
-def read_prompt():
-    prompt_path = FILES_FINANCES_MODULE_PATH / "prompt.txt"
+def read_txt(file_name):
+    path = FILES_FINANCES_MODULE_PATH / file_name
     
-    with open(prompt_path, "r", encoding="utf-8") as file:
-        prompt = file.read()
+    with open(path, "r", encoding="utf-8") as file:
+        content = file.read()
 
-    return prompt
+    return content
+
+def save_txt(file_name, content):
+    path = FILES_FINANCES_MODULE_PATH / file_name
+    
+    with open(path, "w", encoding="utf-8") as file:
+        file.write(content)
+
+def read_json(file_name):
+    path = FILES_FINANCES_MODULE_PATH / file_name
+    
+    with open(path, "r", encoding="utf-8") as file:
+        content = json.load(file)
+
+    return content
+
+def export_json(file_name, content):
+    path = FILES_FINANCES_MODULE_PATH / file_name
+    
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(content, file, ensure_ascii=False, indent=4)
+
+def include_expenses(new_expenses):
+    expenses = read_json("expenses.json")
+
+    for new_expense in new_expenses:
+        expenses.append(new_expense)
+
+    export_json("expenses.json", expenses)
