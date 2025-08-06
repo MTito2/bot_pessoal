@@ -10,17 +10,28 @@ def main_finances_menu():
     markup = types.InlineKeyboardMarkup(row_width=1)
 
     btn1 = types.InlineKeyboardButton("Analisar Cupom", callback_data="analyze_coupon")
-    btn2 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
+    btn2 = types.InlineKeyboardButton("Inserir Despesas", callback_data="entry_expenses")
+    btn3 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
+
+    markup.add(btn1, btn2, btn3)
+
+    return markup
+
+def confirm_information_coupon_menu():
+    markup = types.InlineKeyboardMarkup(row_width=1)
+
+    btn1 = types.InlineKeyboardButton("Sim", callback_data="confirm_information_coupon_yes")
+    btn2 = types.InlineKeyboardButton("Não", callback_data="confirm_information_coupon_no")
 
     markup.add(btn1, btn2)
 
     return markup
 
-def confirm_information_menu():
+def confirm_manual_expense_entry_menu():
     markup = types.InlineKeyboardMarkup(row_width=1)
 
-    btn1 = types.InlineKeyboardButton("Sim", callback_data="confirm_information_finances_yes")
-    btn2 = types.InlineKeyboardButton("Não", callback_data="confirm_information_finances_no")
+    btn1 = types.InlineKeyboardButton("Sim", callback_data="confirm_entry_expenses_yes")
+    btn2 = types.InlineKeyboardButton("Não", callback_data="confirm_entry_expenses_no")
 
     markup.add(btn1, btn2)
 

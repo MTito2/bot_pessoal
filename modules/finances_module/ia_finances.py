@@ -33,7 +33,21 @@ def analyze_image():
 
     return response.output_text
 
-def convert_analyze_image_to_json(input):
+def analyze_manual_expense_entry(input):
+    client = OpenAI(api_key=OPENAI_KEY)
+
+    response = client.responses.create(
+        input=input,
+        model="gpt-4.1-mini",
+        prompt={
+            "id": "pmpt_689215b60a64819092e79038cc1123db0aa90fd02a3e8819",
+            "version": "3"
+        }
+    )
+    
+    return response.output_text
+
+def convert_analyze_to_json(input):
     client = OpenAI(api_key=OPENAI_KEY)
 
     response = client.responses.create(
@@ -41,8 +55,9 @@ def convert_analyze_image_to_json(input):
         model="gpt-4.1-mini",
         prompt={
             "id": "pmpt_689113b13cb48196bf154146f5b8727908384ea949f1d6a5",
-            "version": "2"
+            "version": "6"
         }
     )
+
     ia_response = json.loads(response.output_text) 
     include_expenses(ia_response)
