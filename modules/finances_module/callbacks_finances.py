@@ -63,19 +63,17 @@ def receive_click_manual_expense_entry(call):
 @bot.message_handler(func=lambda m: user_states_waiting_manual_expense_entry.get(m.from_user.id) == WAITING_EXPENSE_ENTRY)
 def start_analyze_manual_expense_entry(message):
     user_id = message.from_user.id
+    user_states_waiting_manual_expense_entry.pop(user_id)
 
-    if user_states_waiting_manual_expense_entry.get(user_id) == WAITING_EXPENSE_ENTRY:
-        user_states_waiting_manual_expense_entry.pop(user_id)
+    input = message.text
+    bot.reply_to(message, "Vou analisar os dados, só um minuto...")
 
-        input = message.text
-        bot.reply_to(message, "Vou analisar os dados, só um minuto...")
+    bot.send_chat_action(message.chat.id, "typing")
+    analyze_response = analyze_manual_expense_entry(input)
+    bot.reply_to(message, analyze_response)
+    bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_manual_expense_entry_menu())
 
-        bot.send_chat_action(message.chat.id, "typing")
-        analyze_response = analyze_manual_expense_entry(input)
-        bot.reply_to(message, analyze_response)
-        bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_manual_expense_entry_menu())
-
-        save_txt("expense_details.txt", analyze_response)
+    save_txt("expense_details.txt", analyze_response)
 
 @bot.callback_query_handler(func=lambda call: call.data == "confirm_entry_expenses_yes")
 def save_analysis_manual_expense_entry(call):
