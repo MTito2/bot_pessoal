@@ -1,6 +1,7 @@
 import sys, json
 from pathlib import Path
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -44,6 +45,6 @@ def include_study_register(new_registers):
     export_json("registers.json", registers)
 
 def actually_date():
-    date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    date = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
     return date
 

@@ -14,7 +14,6 @@ def analyze_study_register_entry(input):
     client = OpenAI(api_key=OPENAI_KEY)
     date = f"\n{actually_date()}"
     input += date
-    print(input)
     response = client.responses.create(
         input=input,
         model="gpt-4.1-mini",
