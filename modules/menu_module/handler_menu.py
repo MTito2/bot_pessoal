@@ -16,7 +16,8 @@ def send_commands(message):
             """
     /comandos - Para ver os comandos disponíveis
     /status - Para verificar o status do bot
-    /menu
+    /menu - Para ver o menu
+    /cls - Limpar o chat
     """
         )
 
@@ -29,3 +30,9 @@ def send_commands(message):
 def menu(message):
     if check_user(message):
         bot.send_message(message.chat.id, "Escolha uma opção:", reply_markup=main_menu_page_1())
+
+@bot.message_handler(commands=["cls"])
+def send_commands(message):
+    if check_user(message):
+        for i in range(29):
+            bot.send_message(message.chat.id, "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ")
