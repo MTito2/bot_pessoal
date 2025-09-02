@@ -1,4 +1,4 @@
-import sys, json
+import sys, json, re
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -48,3 +48,5 @@ def actually_date():
     date = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
     return date
 
+def check_period(period: str):
+    return bool(re.fullmatch(r"\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}", period))
