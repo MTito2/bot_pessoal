@@ -10,8 +10,8 @@ def main_menu_page_1():
     markup = types.InlineKeyboardMarkup(row_width=1)
 
     btn1 = types.InlineKeyboardButton("Finanças", callback_data="finances_menu")
-    btn2 = types.InlineKeyboardButton("Dieta", callback_data="diet_menu")
-    btn3 = types.InlineKeyboardButton("Agenda", callback_data="agenda_menu")
+    btn2 = types.InlineKeyboardButton("Estudos", callback_data="study_menu")
+    btn3 = types.InlineKeyboardButton("Dieta", callback_data="diet_menu")
     btn4 = types.InlineKeyboardButton("Livros", callback_data="books_menu")
     btn5 = types.InlineKeyboardButton("Próximo ➡️", callback_data="next_page")
 
@@ -22,7 +22,7 @@ def main_menu_page_1():
 def main_menu_page_2():
     markup = types.InlineKeyboardMarkup(row_width=1)
 
-    btn1 = types.InlineKeyboardButton("Estudos", callback_data="study_menu")
+    btn1 = types.InlineKeyboardButton("Agenda", callback_data="agenda_menu")
     btn2 = types.InlineKeyboardButton("Corrida", callback_data="run_menu")
     btn3 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
 

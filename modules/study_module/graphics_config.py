@@ -8,13 +8,14 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_STUDY_MODULE_PATH
-from functions_study import read_json
+from modules.study_module.functions_study import read_json
 
 registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
-registers = read_json(registers_path)
+IMG_BARS_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bar.png"
+IMG_BUBBLE_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bubble.png"
 
 def generate_chart_bars(year_month: str):
-    img_path = FILES_STUDY_MODULE_PATH / "time_study_graph_bar.png"
+    registers = read_json(registers_path)
 
     df_filtered = pd.DataFrame(registers)
     df_filtered['date_time'] = pd.to_datetime(df_filtered['date_time'], dayfirst=True, errors='coerce')
@@ -27,7 +28,7 @@ def generate_chart_bars(year_month: str):
 
     sns.set_style("ticks")
     plt.figure(figsize=(14, 7))
-    bars = sns.barplot(data=daily_duration, x='date', y='duration', palette=colors)
+    bars = sns.barplot(data=daily_duration, x='date', y='duration', palette=colors, hue='date', legend=False)
     plt.title("Tempo total de estudo por dia")
     plt.xlabel("Data")
     plt.ylabel("Duração (minutos)")
@@ -38,10 +39,11 @@ def generate_chart_bars(year_month: str):
         plt.text(bar.get_x() + bar.get_width()/2, height + 0.5, f'{int(height)}', ha='center', va='bottom')
 
     plt.tight_layout()
-    plt.savefig(img_path, dpi=300)
+    plt.savefig(IMG_BARS_PATH, dpi=300)
+    plt.close()
 
 def generate_chart_bubble(year_month: str):
-    img_path = FILES_STUDY_MODULE_PATH / "time_study_graph_bubble.png"
+    registers = read_json(registers_path)
 
     df_filtered = pd.DataFrame(registers)
     df_filtered['date_time'] = pd.to_datetime(df_filtered['date_time'], dayfirst=True, errors='coerce')
@@ -75,4 +77,5 @@ def generate_chart_bubble(year_month: str):
     plt.ylabel("Dia / Semana")
     plt.legend(title="Duração (minutos)", bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
-    plt.savefig(img_path, dpi=300)
+    plt.savefig(IMG_BUBBLE_PATH, dpi=300)
+    plt.close()

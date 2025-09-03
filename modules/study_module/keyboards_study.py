@@ -10,10 +10,11 @@ def main_study_menu():
     markup = types.InlineKeyboardMarkup(row_width=1)
 
     btn1 = types.InlineKeyboardButton("Registrar Estudo", callback_data="study_register")
-    btn2 = types.InlineKeyboardButton("Ver Métricas", callback_data="study_metrics")
-    btn3 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
+    btn2 = types.InlineKeyboardButton("Visualizar Gráficos", callback_data="study_graphics")
+    btn3 = types.InlineKeyboardButton("Ver Métricas", callback_data="study_metrics")
+    btn4 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
 
-    markup.add(btn1, btn2, btn3)
+    markup.add(btn1, btn2, btn3, btn4)
 
     return markup
 

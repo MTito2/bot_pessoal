@@ -8,10 +8,8 @@ sys.path.insert(0, str(ROOT_DIR))
 from config import FILES_STUDY_MODULE_PATH
 from modules.study_module.functions_study import read_json
 
-registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
-registers = read_json(registers_path)
 
-def study_time_total(start, end):
+def study_time_total(registers, start, end):
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -20,7 +18,7 @@ def study_time_total(start, end):
 
     return time_total
 
-def study_time_average(start, end):
+def study_time_average(registers, start, end):
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -34,7 +32,7 @@ def study_time_average(start, end):
 
     return round(time_total / num_days)
 
-def proportion_days_studied(start, end):
+def proportion_days_studied(registers, start, end):
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -46,7 +44,7 @@ def proportion_days_studied(start, end):
 
     return round(proportion, 2)
 
-def number_of_session(start, end):
+def number_of_session(registers, start, end):
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -54,7 +52,7 @@ def number_of_session(start, end):
     
     return len(df_filter)
 
-def longest_session(start, end):
+def longest_session(registers, start, end):
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
     df_filter = df[(df['date_time'].dt.date >= start.date()) & (df['date_time'].dt.date <= end.date())]
@@ -69,7 +67,7 @@ def longest_session(start, end):
     
     return date, duration
 
-def study_time_total_for_subject(start, end) -> list[tuple[str, int]]:
+def study_time_total_for_subject(registers, start, end) -> list[tuple[str, int]]:
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
     df_filter = df[(df['date_time'].dt.date >= start.date()) & (df['date_time'].dt.date <= end.date())]
@@ -84,6 +82,9 @@ def study_time_total_for_subject(start, end) -> list[tuple[str, int]]:
     return items
 
 def study_full_report(period):
+    registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
+    registers = read_json(registers_path)
+
     dates = period.split(" - ")
     start = dates[0]
     end = dates[1]
@@ -91,12 +92,12 @@ def study_full_report(period):
     start = pd.to_datetime(start, dayfirst=True)
     end = pd.to_datetime(end, dayfirst=True)
 
-    time_total = study_time_total(start, end)
-    time_average = study_time_average(start, end)
-    proportion_days = proportion_days_studied(start, end)
-    number_session = number_of_session(start, end)
-    longest = longest_session(start, end)
-    time_total_for_subject = study_time_total_for_subject(start, end)
+    time_total = study_time_total(registers, start, end)
+    time_average = study_time_average(registers, start, end)
+    proportion_days = proportion_days_studied(registers, start, end)
+    number_session = number_of_session(registers, start, end)
+    longest = longest_session(registers, start, end)
+    time_total_for_subject = study_time_total_for_subject(registers, start, end)
 
     text = "*Métricas de Estudo*\n\n"
     text += f"*Número de sessões:* {number_session}\n"
@@ -107,9 +108,8 @@ def study_full_report(period):
     text += "*Tempo total por disciplina:*\n"
 
     for subject, duration in time_total_for_subject:
-        # Escapando caracteres especiais em MarkdownV2
         subject_escaped = subject.replace("-", "\\-").replace(".", "\\.").replace("(", "\\(").replace(")", "\\)").replace("!", "\\!")
-        text += f"• {subject_escaped}: {duration} minutos\n"
+        text += f"{subject_escaped}: {duration} minutos\n"
 
     text += f"*Total de tempo estudado:* {time_total} minutos"
 

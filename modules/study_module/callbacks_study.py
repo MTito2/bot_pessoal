@@ -7,13 +7,18 @@ sys.path.insert(0, str(ROOT_DIR))
 from bot import bot
 from modules.study_module.keyboards_study import main_study_menu, confirm_study_register_entry_menu
 from modules.study_module.ia_study import analyze_study_register_entry, convert_analyze_to_json
-from modules.study_module.functions_study import save_txt, read_txt, check_period
+from modules.study_module.functions_study import save_txt, read_txt, check_period_d_m_y, check_period_m_y
 from modules.study_module.metrics_config import study_full_report
+from modules.study_module.graphics_config import generate_chart_bars, generate_chart_bubble, IMG_BARS_PATH, IMG_BUBBLE_PATH
+
 
 WAITING_STUDY_REGISTER_ENTRY = "waiting_study_register_entry"
 WAITING_STUDY_METRICS_ENTRY = "waiting_study_metrics_entry"
+WAITING_STUDY_GRAPHICS_ENTRY = "waiting_study_graphics_entry"
+
 user_states_waiting_study_register_entry = {}
 user_states_waiting_study_metrics_entry = {}
+user_states_waiting_study_graphics_entry = {}
 
 #Envia o menu de estudos
 @bot.callback_query_handler(func=lambda call: call.data == "study_menu")
@@ -51,7 +56,7 @@ def save_study_register(call):
 def show_again_study_menu(call):
     bot.send_message(call.message.chat.id, "Os dados estão corretos?", reply_markup=main_study_menu())
 
-#Envia o botão de métricas de estudo
+#Após clique no botão de métricas aguarda usuário digitar período
 @bot.callback_query_handler(func=lambda call: call.data == "study_metrics")
 def receive_click_to_study_metrics(call):
     user_states_waiting_study_metrics_entry[call.from_user.id] = WAITING_STUDY_METRICS_ENTRY
@@ -63,7 +68,7 @@ def show_metrics(message):
     user_id = message.from_user.id
     user_states_waiting_study_metrics_entry.pop(user_id)
     input = message.text
-    result = check_period(input)
+    result = check_period_d_m_y(input)
 
     #Se data for correta
     if result:
@@ -72,3 +77,31 @@ def show_metrics(message):
     
     else:
         bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (dd/mm - dd/mm/aaaa):", reply_markup=main_study_menu())
+
+#Após clique no botão de visualizar gráfico aguarda usuário digitar período
+@bot.callback_query_handler(func=lambda call: call.data == "study_graphics")
+def receive_click_to_study_graphics(call):
+    user_states_waiting_study_graphics_entry[call.from_user.id] = WAITING_STUDY_GRAPHICS_ENTRY
+    bot.send_message(call.message.chat.id, "Informe o período:")
+
+#Recebe o período e verifica se ele está no formato correto
+@bot.message_handler(func=lambda m: user_states_waiting_study_graphics_entry.get(m.from_user.id) == WAITING_STUDY_GRAPHICS_ENTRY)
+def send_graphics(message):
+    user_id = message.from_user.id
+    user_states_waiting_study_graphics_entry.pop(user_id)
+    period = message.text
+    result = check_period_m_y(period)
+
+    #Se data for correta
+    if result:
+        generate_chart_bubble(period)
+        generate_chart_bars(period)
+
+        with open(IMG_BUBBLE_PATH, "rb") as img_bubble:
+            bot.send_photo(message.chat.id, img_bubble, caption="Gráfico de Bolhas")
+
+        with open(IMG_BARS_PATH, "rb") as img_bars:
+            bot.send_photo(message.chat.id, img_bars, caption="Gráfico de Barras")
+
+    else:
+        bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (mm/aaaa):", reply_markup=main_study_menu())
