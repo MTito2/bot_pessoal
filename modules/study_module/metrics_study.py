@@ -65,7 +65,7 @@ def longest_session(registers, start, end):
     date = max_day["date"].strftime('%d/%m/%Y')
     duration = max_day["total_duration"]
     
-    return date, duration
+    return date, duration   
 
 def study_time_total_for_subject(registers, start, end) -> list[tuple[str, int]]:
     df = pd.DataFrame(registers)

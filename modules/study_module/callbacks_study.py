@@ -8,8 +8,8 @@ from bot import bot
 from modules.study_module.keyboards_study import main_study_menu, confirm_study_register_entry_menu
 from modules.study_module.ia_study import analyze_study_register_entry, convert_analyze_to_json
 from modules.study_module.functions_study import save_txt, read_txt, check_period_d_m_y, check_period_m_y
-from modules.study_module.metrics_config import study_full_report
-from modules.study_module.graphics_config import generate_chart_bars, generate_chart_bubble, IMG_BARS_PATH, IMG_BUBBLE_PATH
+from modules.study_module.metrics_study import study_full_report
+from modules.study_module.graphics_study import generate_chart_bars, generate_chart_bubble, IMG_BARS_PATH, IMG_BUBBLE_PATH
 
 
 WAITING_STUDY_REGISTER_ENTRY = "waiting_study_register_entry"

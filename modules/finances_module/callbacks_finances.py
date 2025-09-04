@@ -5,15 +5,18 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from bot import bot
+from modules.finances_module.metrics_finances import expenses_full_report
 from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry
-from modules.finances_module.functions_finances import save_photo, save_txt, read_txt
+from modules.finances_module.functions_finances import save_photo, save_txt, read_txt, check_period_d_m_y
 from modules.finances_module.keyboards_finances import main_finances_menu, confirm_information_coupon_menu, confirm_manual_expense_entry_menu
 
 user_states_waiting_photo = {}
 user_states_waiting_manual_expense_entry = {}
+user_states_waiting_expenses_metrics_entry = {}
 
 WAITING_COUPON_PHOTO = "waiting_coupon_photo"
 WAITING_EXPENSE_ENTRY = "waiting_expense_entry"
+WAITING_EXPENSES_METRICS_ENTRY = "waiting_expenses_metrics_entry"
 
 @bot.callback_query_handler(func=lambda call: call.data == "finances_menu")
 def handle_finance_menu(call):
@@ -85,3 +88,25 @@ def save_analysis_manual_expense_entry(call):
 @bot.callback_query_handler(func=lambda call: call.data == "confirm_entry_expenses_no")
 def show_again_finances_menu(call):
     bot.send_message(call.message.chat.id, "Escolha uma opção:", reply_markup=main_finances_menu())
+
+#Após clique no botão de métricas aguarda usuário digitar período
+@bot.callback_query_handler(func=lambda call: call.data == "expenses_metrics")
+def receive_click_to_expenses_metrics(call):
+    user_states_waiting_expenses_metrics_entry[call.from_user.id] = WAITING_EXPENSES_METRICS_ENTRY
+    bot.send_message(call.message.chat.id, "Informe o período:")
+
+#Recebe o período e verifica se ele está no formato correto
+@bot.message_handler(func=lambda m: user_states_waiting_expenses_metrics_entry.get(m.from_user.id) == WAITING_EXPENSES_METRICS_ENTRY)
+def show_metrics(message):
+    user_id = message.from_user.id
+    user_states_waiting_expenses_metrics_entry.pop(user_id)
+    input = message.text
+    result = check_period_d_m_y(input)
+
+    #Se data for correta
+    if result:
+        text = expenses_full_report(input)
+        bot.send_message(message.chat.id, text, parse_mode="Markdown")
+    
+    else:
+        bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (dd/mm - dd/mm/aaaa):", reply_markup=main_finances_menu())

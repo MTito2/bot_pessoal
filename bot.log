@@ -154,3 +154,49 @@ requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetErro
 2025-09-04 14:08:59,723 - ERROR - Break infinity polling
 2025-09-04 14:13:39,755 - ERROR - Infinity polling: polling exited
 2025-09-04 14:13:39,756 - ERROR - Break infinity polling
+2025-09-04 17:05:14,293 - ERROR - Infinity polling exception: single positional indexer is out-of-bounds
+2025-09-04 17:05:14,297 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 108, in show_metrics
+    text = expenses_full_report(input)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\metrics_finances.py", line 82, in expenses_full_report
+    value_max_expense = max_expense(expenses, start, end)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\metrics_finances.py", line 25, in max_expense
+    max_expense_row = df_filter.sort_values('value', ascending=False).iloc[0]
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\pandas\core\indexing.py", line 1191, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\pandas\core\indexing.py", line 1752, in _getitem_axis
+    self._validate_integer(key, axis)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\pandas\core\indexing.py", line 1685, in _validate_integer
+    raise IndexError("single positional indexer is out-of-bounds")
+IndexError: single positional indexer is out-of-bounds
+
+2025-09-04 17:11:42,538 - ERROR - Infinity polling: polling exited
+2025-09-04 17:11:42,540 - ERROR - Break infinity polling

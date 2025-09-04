@@ -11,9 +11,10 @@ def main_finances_menu():
 
     btn1 = types.InlineKeyboardButton("Analisar Cupom", callback_data="analyze_coupon")
     btn2 = types.InlineKeyboardButton("Inserir Despesas", callback_data="entry_expenses")
-    btn3 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
+    btn3 = types.InlineKeyboardButton("Ver Métricas", callback_data="expenses_metrics")
+    btn4 = types.InlineKeyboardButton("Voltar ⬅️", callback_data="previous_page")
 
-    markup.add(btn1, btn2, btn3)
+    markup.add(btn1, btn2, btn3, btn4)
 
     return markup
 
