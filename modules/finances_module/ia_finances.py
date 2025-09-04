@@ -7,7 +7,7 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from keys import OPENAI_KEY
 from config import FILES_FINANCES_MODULE_PATH
-from modules.finances_module.functions_finances import encode_image, read_txt, include_expenses
+from modules.finances_module.functions_finances import encode_image, read_txt, include_expenses, actually_date
 
 client = OpenAI(api_key=OPENAI_KEY)
 
@@ -35,13 +35,15 @@ def analyze_image():
 
 def analyze_manual_expense_entry(input):
     client = OpenAI(api_key=OPENAI_KEY)
+    date = actually_date()
+    input += f"\n{date}"
 
     response = client.responses.create(
         input=input,
         model="gpt-4.1-mini",
         prompt={
             "id": "pmpt_689215b60a64819092e79038cc1123db0aa90fd02a3e8819",
-            "version": "3"
+            "version": "6"
         }
     )
     

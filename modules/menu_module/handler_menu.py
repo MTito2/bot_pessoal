@@ -34,5 +34,5 @@ def menu(message):
 @bot.message_handler(commands=["cls"])
 def send_commands(message):
     if check_user(message):
-        for i in range(29):
-            bot.send_message(message.chat.id, "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ")
+        for i in range(11):
+            bot.send_message(message.chat.id, "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\nㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\nㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\nㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ")

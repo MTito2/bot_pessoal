@@ -41,7 +41,7 @@ def start_analyze_coupon(message):
         save_txt("coupon_details.txt", analysis_response)
 
         bot.send_chat_action(message.chat.id, "typing")
-        bot.reply_to(message, analysis_response)
+        bot.send_message(message.chat.id, analysis_response)
         bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_information_coupon_menu())
 
 @bot.callback_query_handler(func=lambda call: call.data == "confirm_information_coupon_yes")
@@ -70,7 +70,7 @@ def start_analyze_manual_expense_entry(message):
 
     bot.send_chat_action(message.chat.id, "typing")
     analyze_response = analyze_manual_expense_entry(input)
-    bot.reply_to(message, analyze_response)
+    bot.send_message(message.chat.id, analyze_response)
     bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_manual_expense_entry_menu())
 
     save_txt("expense_details.txt", analyze_response)

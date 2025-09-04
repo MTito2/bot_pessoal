@@ -1,5 +1,7 @@
 import sys, json
 from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -38,6 +40,10 @@ def read_json(file_name):
         content = json.load(file)
 
     return content
+
+def actually_date():
+    date = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
+    return date
 
 def export_json(file_name, content):
     path = FILES_FINANCES_MODULE_PATH / file_name

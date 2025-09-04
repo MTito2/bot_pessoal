@@ -41,7 +41,7 @@ def register_study(message):
     bot.reply_to(message, "Analisando dados, só um instante...")
     response_ia = analyze_study_register_entry(input)
 
-    bot.reply_to(message, response_ia)
+    bot.send_message(message.chat.id, response_ia)
     bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_study_register_entry_menu())
 
 #Se usuário apertar sim no botão de dados corretos ele salva os dados
