@@ -6,17 +6,20 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from bot import bot
 from modules.finances_module.metrics_finances import expenses_full_report
-from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry
-from modules.finances_module.functions_finances import save_photo, save_txt, read_txt, check_period_d_m_y
+from modules.finances_module.graphics_finances import generate_chart_daily_bars, generate_chart_pie, IMG_BARS_PATH, IMG_PIE_PATH
+from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry, period_generate
+from modules.finances_module.functions_finances import save_photo, save_txt, read_txt, check_period_d_m_y, check_period_m_y
 from modules.finances_module.keyboards_finances import main_finances_menu, confirm_information_coupon_menu, confirm_manual_expense_entry_menu
 
 user_states_waiting_photo = {}
 user_states_waiting_manual_expense_entry = {}
 user_states_waiting_expenses_metrics_entry = {}
+user_states_waiting_expenses_graphics_entry = {}
 
 WAITING_COUPON_PHOTO = "waiting_coupon_photo"
 WAITING_EXPENSE_ENTRY = "waiting_expense_entry"
 WAITING_EXPENSES_METRICS_ENTRY = "waiting_expenses_metrics_entry"
+WAITING_EXPENSES_GRAPHICS_ENTRY = "waiting_expenses_metrics_entry"
 
 @bot.callback_query_handler(func=lambda call: call.data == "finances_menu")
 def handle_finance_menu(call):
@@ -100,13 +103,48 @@ def receive_click_to_expenses_metrics(call):
 def show_metrics(message):
     user_id = message.from_user.id
     user_states_waiting_expenses_metrics_entry.pop(user_id)
-    input = message.text
-    result = check_period_d_m_y(input)
+
+    period = message.text
+    period = period_generate(period)
+
+    result = check_period_d_m_y(period)
 
     #Se data for correta
     if result:
-        text = expenses_full_report(input)
-        bot.send_message(message.chat.id, text, parse_mode="Markdown")
+        try:
+            text = expenses_full_report(period)
+            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+
+        except Exception:
+            bot.send_message(message.chat.id, "Nenhum dado econtrado nesse período.")
     
     else:
         bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (dd/mm - dd/mm/aaaa):", reply_markup=main_finances_menu())
+
+#Após clique no botão de visualizar gráfico aguarda usuário digitar período
+@bot.callback_query_handler(func=lambda call: call.data == "expenses_graphics")
+def receive_click_to_study_graphics(call):
+    user_states_waiting_expenses_graphics_entry[call.from_user.id] = WAITING_EXPENSES_GRAPHICS_ENTRY
+    bot.send_message(call.message.chat.id, "Informe o período:")
+
+#Recebe o período e verifica se ele está no formato correto
+@bot.message_handler(func=lambda m: user_states_waiting_expenses_graphics_entry.get(m.from_user.id) == WAITING_EXPENSES_GRAPHICS_ENTRY)
+def send_graphics(message):
+    user_id = message.from_user.id
+    user_states_waiting_expenses_graphics_entry.pop(user_id)
+    period = message.text
+    result = check_period_m_y(period)
+
+    #Se data for correta
+    if result:
+        generate_chart_daily_bars(period)
+        generate_chart_pie(period)
+
+        with open(IMG_BARS_PATH, "rb") as img_bars:
+            bot.send_photo(message.chat.id, img_bars, caption="Gráfico de Barras")
+
+        with open(IMG_PIE_PATH, "rb") as img_pie:
+            bot.send_photo(message.chat.id, img_pie, caption="Gráfico de Pizza")
+
+    else:
+        bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (mm/aaaa):", reply_markup=main_finances_menu())

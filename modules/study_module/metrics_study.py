@@ -111,6 +111,7 @@ def study_full_report(period):
         subject_escaped = subject.replace("-", "\\-").replace(".", "\\.").replace("(", "\\(").replace(")", "\\)").replace("!", "\\!")
         text += f"{subject_escaped}: {duration} minutos\n"
 
-    text += f"*Total de tempo estudado:* {time_total} minutos"
+    text += f"*Total de tempo estudado:* {time_total} minutos\n"
+    text += f"*Perído: {period}*"
 
     return text

@@ -94,7 +94,8 @@ def expenses_full_report(period):
         text += f"{item[0]}: R$ {item[1]}\n"
 
     text += f"\n*Gasto médio por dia:* R$ {average_value}\n"
-    text += f"*Gasto total:* R$ {total_value}\n"
+    text += f"*Gasto total:* R$ {total_value}\n\n"
+    text += f"*Perído: {period}*"
 
     return text.replace(".", ",")
 

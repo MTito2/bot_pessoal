@@ -6,7 +6,7 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from bot import bot
 from modules.study_module.keyboards_study import main_study_menu, confirm_study_register_entry_menu
-from modules.study_module.ia_study import analyze_study_register_entry, convert_analyze_to_json
+from modules.study_module.ia_study import analyze_study_register_entry, convert_analyze_to_json, period_generate
 from modules.study_module.functions_study import save_txt, read_txt, check_period_d_m_y, check_period_m_y
 from modules.study_module.metrics_study import study_full_report
 from modules.study_module.graphics_study import generate_chart_bars, generate_chart_bubble, IMG_BARS_PATH, IMG_BUBBLE_PATH
@@ -67,13 +67,19 @@ def receive_click_to_study_metrics(call):
 def show_metrics(message):
     user_id = message.from_user.id
     user_states_waiting_study_metrics_entry.pop(user_id)
-    input = message.text
-    result = check_period_d_m_y(input)
+    period = message.text
+    period = period_generate(period)
+    
+    result = check_period_d_m_y(period)
 
     #Se data for correta
     if result:
-        text = study_full_report(input)
-        bot.send_message(message.chat.id, text, parse_mode="Markdown")
+        try:
+            text = study_full_report(period)
+            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+
+        except Exception:
+           bot.send_message(message.chat.id, "Nenhum dado encontrado nesse período") 
     
     else:
         bot.send_message(message.chat.id, "Período inválido, tente novamente nesse formato (dd/mm - dd/mm/aaaa):", reply_markup=main_study_menu())

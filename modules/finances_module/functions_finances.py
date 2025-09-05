@@ -62,3 +62,7 @@ def include_expenses(new_expenses):
 def check_period_d_m_y(period: str):
     #Checa se ta no nesse formato exemplo 01/01/2000 - 01/01/2000
     return bool(re.fullmatch(r"\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}", period))
+
+def check_period_m_y(period: str):
+    #Checa se ta no nesse formato exemplo 01/2000
+    return bool(re.fullmatch(r"\d{2}/\d{4}", period))

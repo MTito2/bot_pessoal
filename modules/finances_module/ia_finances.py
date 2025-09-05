@@ -7,7 +7,7 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from keys import OPENAI_KEY
 from config import FILES_FINANCES_MODULE_PATH
-from modules.finances_module.functions_finances import encode_image, read_txt, include_expenses, actually_date
+from modules.finances_module.functions_finances import encode_image, read_txt, include_expenses, actually_date, actually_date
 
 client = OpenAI(api_key=OPENAI_KEY)
 
@@ -63,3 +63,22 @@ def convert_analyze_to_json(input):
 
     ia_response = json.loads(response.output_text) 
     include_expenses(ia_response)
+
+def period_generate(input):
+    client = OpenAI(api_key=OPENAI_KEY)
+    date = actually_date()
+
+    input += f"\nData atual: {date}"
+
+    response = client.responses.create(
+        input=input,
+        model="gpt-4.1-mini",
+        prompt={
+            "id": "pmpt_68bb00d19ac48195ad78053a678ad0a60f6cb57682ac7e0f",
+            "version": "1"
+        }
+    )
+
+    ia_response = response.output_text
+
+    return ia_response 
