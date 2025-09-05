@@ -8,7 +8,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_STUDY_MODULE_PATH
-from modules.study_module.functions_study import read_json
+from modules.study_module.functions_study import read_json, actually_date
 
 registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
 IMG_BARS_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bar.png"
@@ -16,6 +16,7 @@ IMG_BUBBLE_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bubble.png"
 
 def generate_chart_bars(year_month: str):
     registers = read_json(registers_path)
+    date = actually_date()
 
     df_filtered = pd.DataFrame(registers)
     df_filtered['date_time'] = pd.to_datetime(df_filtered['date_time'], dayfirst=True, errors='coerce')
@@ -30,7 +31,9 @@ def generate_chart_bars(year_month: str):
     plt.figure(figsize=(14, 7))
     bars = sns.barplot(data=daily_duration, x='date', y='duration', palette=colors, hue='date', legend=False)
     plt.title("Tempo total de estudo por dia")
-    plt.xlabel("Data")
+    plt.figtext(0.1, 0.98, f"Período: {year_month}", ha='center', fontsize=10)
+    plt.figtext(0.25, 0.98, f"Emitido em: {date}", ha='center', fontsize=10)
+    plt.xlabel("")
     plt.ylabel("Duração (minutos)")
     plt.xticks(rotation=45)
 
@@ -44,6 +47,7 @@ def generate_chart_bars(year_month: str):
 
 def generate_chart_bubble(year_month: str):
     registers = read_json(registers_path)
+    date = actually_date()
 
     df_filtered = pd.DataFrame(registers)
     df_filtered['date_time'] = pd.to_datetime(df_filtered['date_time'], dayfirst=True, errors='coerce')
@@ -73,9 +77,14 @@ def generate_chart_bubble(year_month: str):
                 horizontalalignment='center', verticalalignment='center', color='white', fontsize=9, weight='bold')
 
     plt.title("Estudo por dia e horário", fontsize=16)
-    plt.xlabel("Hora do dia")
+    plt.figtext(0.1, 0.98, f"Período: {year_month}", ha='center', fontsize=10)
+    plt.figtext(0.25, 0.98, f"Emitido em: {date}", ha='center', fontsize=10)
+    plt.xlabel("")
     plt.ylabel("Dia / Semana")
     plt.legend(title="Duração (minutos)", bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     plt.savefig(IMG_BUBBLE_PATH, dpi=300)
     plt.close()
+
+generate_chart_bars("08/2025")
+generate_chart_bubble("08/2025")
