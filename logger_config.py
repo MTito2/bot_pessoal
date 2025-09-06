@@ -1,14 +1,15 @@
 import logging
 import sys
+from config import LOGS_PATH
 
-# Configuração do log
+path = LOGS_PATH / "bot.log"
+
 logging.basicConfig(
-    filename="bot.log",
+    filename=path,
     level=logging.ERROR,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Captura erros não tratados no Python inteiro
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)

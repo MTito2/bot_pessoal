@@ -7,6 +7,11 @@ sys.path.insert(0, str(ROOT_DIR))
 from config import DIET_MODULE_PATH
 
 def save_last_suggestion(last_suggestion):
+    """Salva a última sugestão para a IA não repeti-la.
+    
+    Args:
+        last_suggestion (str): Texto da sugestão.
+    """
     path = DIET_MODULE_PATH / "files" / "last_suggestion.txt"
 
     with open (path, "w", encoding= "utf-8") as file:

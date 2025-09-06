@@ -52,6 +52,8 @@ def export_json(file_name, content):
         json.dump(content, file, ensure_ascii=False, indent=4)
 
 def include_expenses(new_expenses):
+    #Salva novas despesas em json já existente.
+
     expenses = read_json("expenses.json")
 
     for new_expense in new_expenses:

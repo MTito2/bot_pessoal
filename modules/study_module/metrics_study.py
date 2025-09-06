@@ -10,6 +10,17 @@ from modules.study_module.functions_study import read_json
 
 
 def study_time_total(registers, start, end):
+    """Calcula o tempo total de estudo em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time' e 'duration'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        int/float: Total de minutos estudados no período.
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -19,6 +30,17 @@ def study_time_total(registers, start, end):
     return time_total
 
 def study_time_average(registers, start, end):
+    """Calcula o tempo médio diário de estudo em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time' e 'duration'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        int: Média de minutos estudados por dia.
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -33,6 +55,17 @@ def study_time_average(registers, start, end):
     return round(time_total / num_days)
 
 def proportion_days_studied(registers, start, end):
+    """Calcula a proporção de dias com estudo em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time' e 'duration'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        float: Percentual de dias estudados no período, arredondado para 2 casas decimais.
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -45,6 +78,17 @@ def proportion_days_studied(registers, start, end):
     return round(proportion, 2)
 
 def number_of_session(registers, start, end):
+    """Conta o número de sessões de estudo em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time' e 'duration'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        int: Quantidade de sessões registradas no período.
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -53,6 +97,17 @@ def number_of_session(registers, start, end):
     return len(df_filter)
 
 def longest_session(registers, start, end):
+    """Retorna o dia com a sessão de estudo mais longa em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time' e 'duration'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        tuple: Data (str, 'dd/mm/yyyy') e duração total (int/float) da sessão mais longa.
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
     df_filter = df[(df['date_time'].dt.date >= start.date()) & (df['date_time'].dt.date <= end.date())]
@@ -68,6 +123,17 @@ def longest_session(registers, start, end):
     return date, duration   
 
 def study_time_total_for_subject(registers, start, end) -> list[tuple[str, int]]:
+    """Calcula o tempo total de estudo por matéria em um período.
+
+    Args:
+        registers (list[dict]): Registros de estudo com 'date_time', 'duration' e 'subject'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        list[tuple[str, int]]: Lista de tuplas (matéria, duração total em minutos).
+    """
+
     df = pd.DataFrame(registers)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
     df_filter = df[(df['date_time'].dt.date >= start.date()) & (df['date_time'].dt.date <= end.date())]
@@ -82,6 +148,18 @@ def study_time_total_for_subject(registers, start, end) -> list[tuple[str, int]]
     return items
 
 def study_full_report(period):
+    """Gera um relatório completo de estudo para o período informado.
+
+    Calcula métricas como número de sessões, média diária, proporção de dias estudados,
+    dia mais intenso, tempo total por disciplina e tempo total geral.
+
+    Args:
+        period (str): Período no formato "dd/mm - dd/mm/aaaa".
+
+    Returns:
+        str: Texto formatado com todas as métricas de estudo.
+    """
+        
     registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
     registers = read_json(registers_path)
 
@@ -112,6 +190,6 @@ def study_full_report(period):
         text += f"{subject_escaped}: {duration} minutos\n"
 
     text += f"*Total de tempo estudado:* {time_total} minutos\n"
-    text += f"*Perído: {period}*"
+    text += f"*Período: {period}*"
 
     return text

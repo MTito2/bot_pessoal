@@ -15,6 +15,12 @@ IMG_BARS_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bar.png"
 IMG_BUBBLE_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bubble.png"
 
 def generate_chart_bars(year_month: str):
+    """Gera e salva gráfico de barras do tempo total de estudo por dia.
+
+    Args:
+        year_month (str): Período no formato 'mm/yyyy'.
+    """
+
     registers = read_json(registers_path)
     date = actually_date()
 
@@ -46,6 +52,12 @@ def generate_chart_bars(year_month: str):
     plt.close()
 
 def generate_chart_bubble(year_month: str):
+    """Gera e salva gráfico de bolhas de estudo por dia e horário.
+
+    Args:
+        year_month (str): Período no formato 'mm/yyyy'.
+    """
+  
     registers = read_json(registers_path)
     date = actually_date()
 
@@ -62,9 +74,9 @@ def generate_chart_bubble(year_month: str):
         data=df_filtered,
         x='hour',
         y='day_week',
-        size='duration',            # tamanho da bolha = duração
-        sizes=(100, 1000),          # intervalo de tamanhos das bolhas
-        hue='duration',              # cor da bolha = duração
+        size='duration',        
+        sizes=(100, 1000),          
+        hue='duration',              
         palette=sns.light_palette("navy", as_cmap=True),
         legend='brief',
         alpha=0.8
@@ -85,6 +97,3 @@ def generate_chart_bubble(year_month: str):
     plt.tight_layout()
     plt.savefig(IMG_BUBBLE_PATH, dpi=300)
     plt.close()
-
-generate_chart_bars("08/2025")
-generate_chart_bubble("08/2025")

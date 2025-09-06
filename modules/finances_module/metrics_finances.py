@@ -9,6 +9,18 @@ from config import FILES_FINANCES_MODULE_PATH
 from modules.finances_module.functions_finances import read_json
 
 def total_value_expenses(expenses, start, end):
+    """Calcula o valor total das despesas em um período específico.
+
+    Filtra as despesas pelo intervalo de datas fornecido e retorna a soma dos valores.
+
+    Args:
+        expenses (list[dict]): Lista de despesas, cada uma contendo pelo menos 'date_time' e 'value'.
+        start (datetime): Data inicial do período.
+        end (datetime): Data final do período.
+
+    Returns:
+        float: Soma dos valores das despesas dentro do período.
+    """
     df = pd.DataFrame(expenses)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -18,6 +30,19 @@ def total_value_expenses(expenses, start, end):
     return total_value
 
 def max_expense(expenses, start, end):
+    """Retorna a maior despesa em um período.
+
+    Filtra despesas pelo intervalo e retorna data, item e valor da maior.
+
+    Args:
+        expenses (list[dict]): Lista de despesas com 'date_time', 'item' e 'value'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        tuple: (data_str, item, valor) da despesa.
+    """
+
     df = pd.DataFrame(expenses)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -27,18 +52,43 @@ def max_expense(expenses, start, end):
     return max_expense_row["date_time"].strftime('%d/%m/%Y'), max_expense_row["item"], max_expense_row["value"] 
 
 def most_purchased(expenses, start, end):
+    """Retorna o item mais comprado em um período.
+
+    Filtra despesas pelo intervalo e identifica o item com maior quantidade.
+
+    Args:
+        expenses (list[dict]): Lista de despesas com 'date_time' e 'item'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        tuple: (item, quantidade) mais comprado no período.
+    """
+        
     df = pd.DataFrame(expenses)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
     df_filter = df[(df['date_time'].dt.date >= start.date()) & (df['date_time'].dt.date <= end.date())]   
     most_purchased_row = df_filter["item"].value_counts().sort_values(ascending=False)
 
-    #Itera sobre as linhas de contagem de itens do maior para o menor
     for item, value in most_purchased_row.items():
         most_purchased = (item, value)
-        return most_purchased # Page somente a primeira linha
+        return most_purchased
 
 def average_value_expenses(expenses, start, end):
+    """Calcula o gasto médio diário em um período.
+
+    Filtra despesas pelo intervalo e retorna a média por dia.
+
+    Args:
+        expenses (list[dict]): Lista de despesas com 'date_time' e 'value'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        float: Valor médio gasto por dia no período.
+    """
+
     df = pd.DataFrame(expenses)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -53,6 +103,19 @@ def average_value_expenses(expenses, start, end):
     return round (total_value / num_days, 2)
 
 def total_value_expenses_category(expenses, start, end):
+    """Calcula o total gasto por categoria em um período.
+
+    Filtra despesas pelo intervalo e retorna a soma dos valores por categoria.
+
+    Args:
+        expenses (list[dict]): Lista de despesas com 'date_time', 'category' e 'value'.
+        start (datetime): Data inicial.
+        end (datetime): Data final.
+
+    Returns:
+        list[tuple]: Lista de tuplas (categoria, valor_total) por categoria.
+    """
+
     df = pd.DataFrame(expenses)
     df['date_time'] = pd.to_datetime(df['date_time'], dayfirst=True, errors='coerce')
 
@@ -68,6 +131,15 @@ def total_value_expenses_category(expenses, start, end):
     return items
 
 def expenses_full_report(period):
+    """Gera um relatório completo de despesas para o período informado.
+
+    Args:
+        period (str): Período no formato 'dd/mm - dd/mm/aaaa'.
+
+    Returns:
+        str: Relatório com total, média, maior gasto, item mais comprado e gastos por categoria.
+    """
+    
     expenses_path = FILES_FINANCES_MODULE_PATH / "expenses.json"
     expenses = read_json(expenses_path)
 
@@ -95,7 +167,7 @@ def expenses_full_report(period):
 
     text += f"\n*Gasto médio por dia:* R$ {average_value}\n"
     text += f"*Gasto total:* R$ {total_value}\n\n"
-    text += f"*Perído: {period}*"
+    text += f"*Período: {period}*"
 
     return text.replace(".", ",")
 
