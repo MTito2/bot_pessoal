@@ -156,10 +156,11 @@ def expenses_full_report(period):
     value_category = total_value_expenses_category(expenses, start, end)
 
     text = "*Métricas de Gastos*\n\n"
-    text += f"*Mais comprado:*\n{counter_item[0]}: {counter_item[1]} vezes\n\n"
+
+    if counter_item[1] > 1:
+        text += f"*Mais comprado:*\n{counter_item[0]}: {counter_item[1]} vezes\n\n"
+
     text += f"*Maior gasto:*\nData: {value_max_expense[0]}\nItem: {value_max_expense[1]}\nValor: R${value_max_expense[2]}\n\n"
-
-
     text += "*Gasto por categoria:*\n"
     for item in value_category:
         text += f"{item[0]}: R$ {item[1]}\n"
