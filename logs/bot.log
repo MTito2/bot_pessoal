@@ -1319,3 +1319,266 @@ requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.telegram.org'
 2025-09-05 12:49:18,446 - ERROR - Break infinity polling
 2025-09-05 14:28:57,916 - ERROR - Infinity polling: polling exited
 2025-09-05 14:28:57,934 - ERROR - Break infinity polling
+2025-09-08 16:07:06,307 - ERROR - Exceção não tratada
+Traceback (most recent call last):
+  File "c:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\main.py", line 4, in <module>
+    from modules.finances_module import callbacks_finances, keyboards_finances
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 13, in <module>
+    from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry, period_generate
+ImportError: cannot import name 'period_generate' from 'modules.finances_module.ia_finances' (C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\ia_finances.py)
+2025-09-08 16:07:12,751 - ERROR - Exceção não tratada
+Traceback (most recent call last):
+  File "c:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\main.py", line 4, in <module>
+    from modules.finances_module import callbacks_finances, keyboards_finances
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 13, in <module>
+    from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry, period_generate
+ImportError: cannot import name 'period_generate' from 'modules.finances_module.ia_finances' (C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\ia_finances.py)
+2025-09-08 16:08:14,999 - ERROR - Infinity polling exception: read_json() takes 2 positional arguments but 3 were given
+2025-09-08 16:08:15,002 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\menu_module\handler_menu.py", line 31, in menu
+    if check_user(message):
+       ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\general_functions.py", line 65, in check_user
+    users = read_json(ROOT_PATH, "general_files", "allowed_users.json")
+TypeError: read_json() takes 2 positional arguments but 3 were given
+
+2025-09-08 16:09:59,782 - ERROR - Infinity polling: polling exited
+2025-09-08 16:09:59,783 - ERROR - Break infinity polling
+2025-09-08 16:11:06,144 - ERROR - Infinity polling exception: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)
+2025-09-08 16:11:06,148 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connection.py", line 565, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 55, in start_analyze_coupon
+    photo_info = bot.get_file(photo_id)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1402, in get_file
+    apihelper.get_file(self.token, file_id)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\apihelper.py", line 217, in get_file
+    return _make_request(token, method_url, params={'file_id': file_id})
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\apihelper.py", line 162, in _make_request
+    result = _get_req_session().request(
+        method, request_url, params=params, files=files,
+        timeout=(connect_timeout, read_timeout), proxies=proxy)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)
+
+2025-09-08 16:12:08,287 - ERROR - Infinity polling: polling exited
+2025-09-08 16:12:08,289 - ERROR - Break infinity polling
+2025-09-08 16:12:56,598 - ERROR - Infinity polling exception: read_txt() missing 1 required positional argument: 'file_name'
+2025-09-08 16:12:56,600 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 69, in save_analysis_img
+    analysis_response = read_txt("coupon_details.txt")
+TypeError: read_txt() missing 1 required positional argument: 'file_name'
+
+2025-09-08 16:14:13,008 - ERROR - Infinity polling: polling exited
+2025-09-08 16:14:13,009 - ERROR - Break infinity polling
+2025-09-08 16:15:18,241 - ERROR - Infinity polling exception: read_json() missing 1 required positional argument: 'file_name'
+2025-09-08 16:15:18,242 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\callbacks_finances.py", line 172, in send_graphics
+    generate_chart_daily_bars(period)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\finances_module\graphics_finances.py", line 69, in generate_chart_daily_bars
+    expenses = read_json(FILES_FINANCES_MODULE_PATH / "expenses.json")
+TypeError: read_json() missing 1 required positional argument: 'file_name'
+
+2025-09-08 16:16:25,646 - ERROR - Infinity polling: polling exited
+2025-09-08 16:16:25,647 - ERROR - Break infinity polling
+2025-09-08 16:23:02,580 - ERROR - Infinity polling exception: read_txt() missing 1 required positional argument: 'file_name'
+2025-09-08 16:23:02,582 - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1110, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 logger_level=logger_level, allowed_updates=allowed_updates, restart_on_change=False,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 *args, **kwargs)
+                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1198, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            logger_level=logger_level, allowed_updates=allowed_updates)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1273, in __threaded_polling
+    raise e
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 1235, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 151, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\util.py", line 94, in run
+    task(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\venv\Lib\site-packages\telebot\__init__.py", line 9854, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\study_module\callbacks_study.py", line 56, in save_study_register
+    convert_analyze_to_json()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Salum\OneDrive\Arquivos\tecnology\bot_pessoal\modules\study_module\ia_study.py", line 33, in convert_analyze_to_json
+    input = read_txt("registers_details.txt")
+TypeError: read_txt() missing 1 required positional argument: 'file_name'
+
+2025-09-08 16:23:32,415 - ERROR - Infinity polling: polling exited
+2025-09-08 16:23:32,416 - ERROR - Break infinity polling

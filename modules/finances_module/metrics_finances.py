@@ -6,7 +6,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_FINANCES_MODULE_PATH
-from modules.finances_module.functions_finances import read_json
+from general_functions import read_json
 
 def total_value_expenses(expenses, start, end):
     """Calcula o valor total das despesas em um período específico.
@@ -139,9 +139,8 @@ def expenses_full_report(period):
     Returns:
         str: Relatório com total, média, maior gasto, item mais comprado e gastos por categoria.
     """
-    
-    expenses_path = FILES_FINANCES_MODULE_PATH / "expenses.json"
-    expenses = read_json(expenses_path)
+
+    expenses = read_json(FILES_FINANCES_MODULE_PATH, "expenses.json")
 
     dates = period.split(" - ")
     start = dates[0]

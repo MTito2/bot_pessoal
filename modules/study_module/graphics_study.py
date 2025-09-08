@@ -1,5 +1,7 @@
 import pandas as pd
 import seaborn as sns
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 import sys
@@ -8,9 +10,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_STUDY_MODULE_PATH
-from modules.study_module.functions_study import read_json, actually_date
+from general_functions import read_json, actually_date
 
-registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
 IMG_BARS_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bar.png"
 IMG_BUBBLE_PATH = FILES_STUDY_MODULE_PATH / "time_study_graph_bubble.png"
 
@@ -21,7 +22,7 @@ def generate_chart_bars(year_month: str):
         year_month (str): Período no formato 'mm/yyyy'.
     """
 
-    registers = read_json(registers_path)
+    registers = read_json(FILES_STUDY_MODULE_PATH, "registers.json")
     date = actually_date()
 
     df_filtered = pd.DataFrame(registers)
@@ -58,7 +59,7 @@ def generate_chart_bubble(year_month: str):
         year_month (str): Período no formato 'mm/yyyy'.
     """
   
-    registers = read_json(registers_path)
+    registers = read_json(FILES_STUDY_MODULE_PATH, "registers.json")
     date = actually_date()
 
     df_filtered = pd.DataFrame(registers)

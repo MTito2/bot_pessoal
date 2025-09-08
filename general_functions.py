@@ -1,14 +1,48 @@
-import json
-from config import CURRENT_PATH
+import json, re
+from config import FILES_ROOT_PATH
 from bot import bot
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-def read_json(folder_name, file_name):
-    path = CURRENT_PATH / folder_name / file_name
+def read_json(folder, file_name):
+    path = folder / file_name
 
     with open (path, "r", encoding="utf-8") as file:
         content = json.load(file)
 
     return content
+
+def export_json(content, folder, file_name):
+    path = folder / file_name
+    
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(content, file, ensure_ascii=False, indent=4)
+
+def read_txt(folder, file_name):
+    path = folder / file_name
+    
+    with open(path, "r", encoding="utf-8") as file:
+        content = file.read()
+
+    return content
+
+def save_txt(content, folder, file_name):
+    path = folder / file_name
+    
+    with open(path, "w", encoding="utf-8") as file:
+        file.write(content)
+
+def actually_date():
+    date = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
+    return date
+
+def check_period_d_m_y(period: str):
+    #Checa se ta no nesse formato exemplo 01/01/2000 - 01/01/2000
+    return bool(re.fullmatch(r"\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}", period))
+
+def check_period_m_y(period: str):
+    #Checa se ta no nesse formato exemplo 01/2000
+    return bool(re.fullmatch(r"\d{2}/\d{4}", period))
 
 def check_user(message):
     """
@@ -28,7 +62,7 @@ def check_user(message):
     """
     
     user_id = message.from_user.id
-    users = read_json("general_files", "allowed_users.json")
+    users = read_json(FILES_ROOT_PATH, "allowed_users.json")
 
     allowed_user = False
 

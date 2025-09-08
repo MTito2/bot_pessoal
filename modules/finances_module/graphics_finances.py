@@ -1,6 +1,8 @@
 import pandas as pd
-import seaborn as sns
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import seaborn as sns
 from pathlib import Path
 import sys
 
@@ -8,9 +10,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_FINANCES_MODULE_PATH
-from modules.finances_module.functions_finances import read_json, actually_date
+from general_functions import actually_date, read_json
 
-expenses_path = FILES_FINANCES_MODULE_PATH / "expenses.json"
 IMG_BARS_PATH = FILES_FINANCES_MODULE_PATH / "expenses_graph_bar.png"
 IMG_PIE_PATH = FILES_FINANCES_MODULE_PATH / "expenses_graph_pie.png"
 
@@ -24,7 +25,7 @@ def generate_chart_pie(year_month: str):
         year_month (str): Período no formato 'mm/yyyy' usado para filtrar despesas.
     """
 
-    expenses = read_json(expenses_path)
+    expenses = read_json(FILES_FINANCES_MODULE_PATH, "expenses.json")
     date = actually_date()
 
     df_filtered = pd.DataFrame(expenses)
@@ -67,7 +68,7 @@ def generate_chart_daily_bars(year_month: str):
         year_month (str): Período no formato 'mm/yyyy' usado para filtrar despesas.
     """
 
-    expenses = read_json(expenses_path)
+    expenses = read_json(FILES_FINANCES_MODULE_PATH, "expenses.json")
     date = actually_date()
 
     df_filtered = pd.DataFrame(expenses)

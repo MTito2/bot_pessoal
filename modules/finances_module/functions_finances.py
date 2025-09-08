@@ -1,12 +1,11 @@
-import sys, json, re
+import sys
 from pathlib import Path
-from datetime import datetime
-from zoneinfo import ZoneInfo
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from config import FILES_FINANCES_MODULE_PATH
+from general_functions import read_json, export_json
 import base64
 
 def encode_image(image_path):
@@ -19,52 +18,10 @@ def save_photo(downloaded_photo):
     with open(image_path, "wb") as file:
         file.write(downloaded_photo)
 
-def read_txt(file_name):
-    path = FILES_FINANCES_MODULE_PATH / file_name
-    
-    with open(path, "r", encoding="utf-8") as file:
-        content = file.read()
-
-    return content
-
-def save_txt(file_name, content):
-    path = FILES_FINANCES_MODULE_PATH / file_name
-    
-    with open(path, "w", encoding="utf-8") as file:
-        file.write(content)
-
-def read_json(file_name):
-    path = FILES_FINANCES_MODULE_PATH / file_name
-    
-    with open(path, "r", encoding="utf-8") as file:
-        content = json.load(file)
-
-    return content
-
-def actually_date():
-    date = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
-    return date
-
-def export_json(file_name, content):
-    path = FILES_FINANCES_MODULE_PATH / file_name
-    
-    with open(path, "w", encoding="utf-8") as file:
-        json.dump(content, file, ensure_ascii=False, indent=4)
-
 def include_expenses(new_expenses):
-    #Salva novas despesas em json já existente.
-
-    expenses = read_json("expenses.json")
+    expenses = read_json(FILES_FINANCES_MODULE_PATH, "expenses.json")
 
     for new_expense in new_expenses:
         expenses.append(new_expense)
 
-    export_json("expenses.json", expenses)
-
-def check_period_d_m_y(period: str):
-    #Checa se ta no nesse formato exemplo 01/01/2000 - 01/01/2000
-    return bool(re.fullmatch(r"\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}", period))
-
-def check_period_m_y(period: str):
-    #Checa se ta no nesse formato exemplo 01/2000
-    return bool(re.fullmatch(r"\d{2}/\d{4}", period))
+    export_json(expenses, FILES_FINANCES_MODULE_PATH, "expenses.json")

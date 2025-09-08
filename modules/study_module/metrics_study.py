@@ -160,8 +160,7 @@ def study_full_report(period):
         str: Texto formatado com todas as métricas de estudo.
     """
         
-    registers_path = FILES_STUDY_MODULE_PATH / "registers.json"
-    registers = read_json(registers_path)
+    registers = read_json(FILES_STUDY_MODULE_PATH, "registers.json")
 
     dates = period.split(" - ")
     start = dates[0]

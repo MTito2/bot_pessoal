@@ -5,10 +5,13 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from bot import bot
+from config import FILES_FINANCES_MODULE_PATH
+from general_functions import save_txt, read_txt, check_period_d_m_y, check_period_m_y
+from general_ia import period_generate
 from modules.finances_module.metrics_finances import expenses_full_report
 from modules.finances_module.graphics_finances import generate_chart_daily_bars, generate_chart_pie, IMG_BARS_PATH, IMG_PIE_PATH
-from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry, period_generate
-from modules.finances_module.functions_finances import save_photo, save_txt, read_txt, check_period_d_m_y, check_period_m_y
+from modules.finances_module.ia_finances import analyze_image, convert_analyze_to_json, analyze_manual_expense_entry
+from modules.finances_module.functions_finances import save_photo
 from modules.finances_module.keyboards_finances import main_finances_menu, confirm_information_coupon_menu, confirm_manual_expense_entry_menu
 
 user_states_waiting_photo = {}
@@ -54,7 +57,7 @@ def start_analyze_coupon(message):
         save_photo(downloaded_photo)
 
         analysis_response = analyze_image()
-        save_txt("coupon_details.txt", analysis_response)
+        save_txt(analysis_response, FILES_FINANCES_MODULE_PATH, "coupon_details.txt")
 
         bot.send_chat_action(message.chat.id, "typing")
         bot.send_message(message.chat.id, analysis_response)
@@ -63,7 +66,7 @@ def start_analyze_coupon(message):
 @bot.callback_query_handler(func=lambda call: call.data == "confirm_information_coupon_yes")
 def save_analysis_img(call):
     bot.send_message(call.message.chat.id, "Salvando dados...")
-    analysis_response = read_txt("coupon_details.txt")
+    analysis_response = read_txt(FILES_FINANCES_MODULE_PATH, "coupon_details.txt")
     convert_analyze_to_json(analysis_response)
     bot.send_message(call.message.chat.id, "Dados salvos com sucesso ✅")
 
@@ -99,12 +102,12 @@ def start_analyze_manual_expense_entry(message):
     bot.send_message(message.chat.id, analyze_response)
     bot.send_message(message.chat.id, "Os dados estão corretos?", reply_markup=confirm_manual_expense_entry_menu())
 
-    save_txt("expense_details.txt", analyze_response)
+    save_txt(analyze_response, FILES_FINANCES_MODULE_PATH, "expense_details.txt")
 
 @bot.callback_query_handler(func=lambda call: call.data == "confirm_entry_expenses_yes")
 def save_analysis_manual_expense_entry(call):
     bot.send_message(call.message.chat.id, "Salvando dados...")
-    analysis_response = read_txt("expense_details.txt")
+    analysis_response = read_txt(FILES_FINANCES_MODULE_PATH, "expense_details.txt")
     convert_analyze_to_json(analysis_response)
     bot.send_message(call.message.chat.id, "Dados salvos com sucesso ✅")
 
