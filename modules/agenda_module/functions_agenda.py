@@ -23,8 +23,8 @@ path_token = FILES_AGENDA_MODULE_PATH / "token.json"
 def generate_service():
     creds = None
 
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', ['https://www.googleapis.com/auth/calendar'])
+    if os.path.exists(path_token):
+        creds = Credentials.from_authorized_user_file(path_token, ['https://www.googleapis.com/auth/calendar'])
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -33,7 +33,7 @@ def generate_service():
             flow = InstalledAppFlow.from_client_secrets_file(path_credentials, ['https://www.googleapis.com/auth/calendar'])
             creds = flow.run_local_server(port=0)
 
-        with open(token, 'w') as token:
+        with open(path_token, 'w') as token:
             token.write(creds.to_json())
 
     service = build('calendar', 'v3', credentials=creds)
