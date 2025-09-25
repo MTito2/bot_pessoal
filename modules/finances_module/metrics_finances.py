@@ -149,11 +149,11 @@ def expenses_full_report(period):
     start = pd.to_datetime(start, dayfirst=True)
     end = pd.to_datetime(end, dayfirst=True)
 
-    total_value = total_value_expenses(expenses, start, end)
-    value_max_expense = max_expense(expenses, start, end)
+    total_value = round(total_value_expenses(expenses, start, end), 2)
+    value_max_expense = round(max_expense(expenses, start, end), 2)
     counter_item = most_purchased(expenses, start, end)
-    average_value = average_value_expenses(expenses, start, end)
-    value_category = total_value_expenses_category(expenses, start, end)
+    average_value = round(average_value_expenses(expenses, start, end), 2)
+    value_category = round(total_value_expenses_category(expenses, start, end), 2)
 
     text = "*Métricas de Gastos*\n\n"
 
