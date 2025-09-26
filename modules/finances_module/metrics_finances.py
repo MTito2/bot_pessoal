@@ -100,7 +100,7 @@ def average_value_expenses(expenses, start, end):
     if num_days == 0:
         return 0
 
-    return round (total_value / num_days, 2)
+    return round(total_value / num_days, 2)
 
 def total_value_expenses_category(expenses, start, end):
     """Calcula o total gasto por categoria em um período.
@@ -150,10 +150,10 @@ def expenses_full_report(period):
     end = pd.to_datetime(end, dayfirst=True)
 
     total_value = round(total_value_expenses(expenses, start, end), 2)
-    value_max_expense = round(max_expense(expenses, start, end), 2)
+    value_max_expense = max_expense(expenses, start, end)
     counter_item = most_purchased(expenses, start, end)
-    average_value = round(average_value_expenses(expenses, start, end), 2)
-    value_category = round(total_value_expenses_category(expenses, start, end), 2)
+    average_value = average_value_expenses(expenses, start, end)
+    value_category = total_value_expenses_category(expenses, start, end)
 
     text = "*Métricas de Gastos*\n\n"
 
@@ -163,11 +163,10 @@ def expenses_full_report(period):
     text += f"*Maior gasto:*\nData: {value_max_expense[0]}\nItem: {value_max_expense[1]}\nValor: R${value_max_expense[2]}\n\n"
     text += "*Gasto por categoria:*\n"
     for item in value_category:
-        text += f"{item[0]}: R$ {item[1]}\n"
+        text += f"{item[0]}: R$ {round(item[1], 2)}\n"
 
     text += f"\n*Gasto médio por dia:* R$ {average_value}\n"
     text += f"*Gasto total:* R$ {total_value}\n\n"
     text += f"*Período: {period}*"
 
     return text.replace(".", ",")
-

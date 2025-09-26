@@ -58,7 +58,7 @@ def convert_analyze_to_json(input):
         model="gpt-4.1-mini",
         prompt={
             "id": "pmpt_689113b13cb48196bf154146f5b8727908384ea949f1d6a5",
-            "version": "6"
+            "version": "7"
         }
     )
 
