@@ -18,8 +18,8 @@ def receive_event(input):
         model="gpt-4.1-mini",
         input=input,
         prompt={
-            "id": "pmpt_68d056dcd8748196b28fa4127f8c4dd60b83c7ca8977d533",
-            "version": "4"
+            "id": "pmpt_6957e3f9d5fc81908e80eb6cf995222008db875d0f5f10f0",
+            "version": "1"
         }
     )
 

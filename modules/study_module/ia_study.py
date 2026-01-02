@@ -18,8 +18,8 @@ def analyze_study_register_entry(input):
         input=input,
         model="gpt-4.1-mini",
         prompt={
-            "id": "pmpt_6899facef23881968fae854ac094e76d0dce3b2008d1832d",
-            "version": "4"
+            "id": "pmpt_6957e35ff774819091e5b9621cb26cef07bedb26ae47ff97",
+            "version": "1"
         }
     )
     
@@ -36,8 +36,8 @@ def convert_analyze_to_json():
         input=input,
         model="gpt-4.1-mini",
         prompt={
-            "id": "pmpt_689a309cc838819389434795286307050063297886ade225",
-            "version": "3"
+            "id": "pmpt_6957e35ff774819091e5b9621cb26cef07bedb26ae47ff97",
+            "version": "1"
         }
     )
 

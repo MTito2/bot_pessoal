@@ -43,8 +43,8 @@ def analyze_manual_expense_entry(input):
         input=input,
         model="gpt-4.1-mini",
         prompt={
-            "id": "pmpt_689215b60a64819092e79038cc1123db0aa90fd02a3e8819",
-            "version": "6"
+            "id": "pmpt_6957e394c2208197899c125a3ef6f8b303d18114f7f7e6db",
+            "version": "1"
         }
     )
     
@@ -57,8 +57,8 @@ def convert_analyze_to_json(input):
         input=input,
         model="gpt-4.1-mini",
         prompt={
-            "id": "pmpt_689113b13cb48196bf154146f5b8727908384ea949f1d6a5",
-            "version": "7"
+            "id": "pmpt_6957e3b03a74819591a7392ea6ee759605974d8951b7b6da",
+            "version": "1"
         }
     )
 

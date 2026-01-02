@@ -17,8 +17,8 @@ def receive_message():
         model="gpt-4.1-mini",
         input=f"{last_suggestion}",
         prompt={
-            "id": "pmpt_6888d8d8f5d48193bca73099d063261d0fefde0130757dbf",
-            "version": "2"
+            "id": "pmpt_6957e3c37a0881908ddb9189fea5a0270e5da8fe9d229112",
+            "version": "1"
         }
     )
 
